@@ -86,7 +86,7 @@ contract Evolution is Initializable, ERC721HolderUpgradeable, AccessControlUpgra
     function deposit(uint256 _tokenId) public {
         require(_tokenId < newLevelDiff * 3, "Evolution: Max upgrade limit reached for this Racer");
         require(RACE.ownerOf(_tokenId) == msg.sender, "Evolution: Not authorized to deposit this Racer");
-        uint256 _levelPrice = _tokenId / newLevelDiff + 1;
+        uint256 _levelPrice = getLevelPrice(_tokenId / newLevelDiff + 1);
         require(EOC.balanceOf(msg.sender) >= _levelPrice, "Evolution: Insufficient funds");
         
         // transfer 5% to _safe & burn rest
